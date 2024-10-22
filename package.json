@@ -1,7 +1,7 @@
 {
   "name": "context-ninja",
   "displayName": "context ninja",
-  "description": "A Visual Studio Code extension that allows you to copy multiple files and easily feed them into LLMs",
+  "description": "an extension that copies multiple files and their file tree structure to make it easy to paste into large language models (LLMs).",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.94.0"
