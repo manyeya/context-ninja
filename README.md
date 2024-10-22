@@ -1,10 +1,10 @@
-# composer README
+# Context Ninja
 
 This extension copies multiple files and their file tree structure to make it easy to paste into language models (LLMs).
 
 ## Features
 
-- Copy file tree structure.
+- Copy multiple files and file tree structure.
 - Easily paste the copied structure into LLMs for better context.
 
 ## Requirements
