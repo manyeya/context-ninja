@@ -2,9 +2,8 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Cache for file stats
 const statCache = new Map<string, { stat: fs.Stats; timestamp: number }>();
-const STAT_CACHE_TTL = 5000; // 5 seconds TTL
+const STAT_CACHE_TTL = 5000;
 
 export function activate(context: vscode.ExtensionContext) {
     const rootPath = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
@@ -98,15 +97,14 @@ async function readFileWithRetry(filePath: string, retries = 3): Promise<string>
 async function generateDirectoryTree(dirPath: string, rootPath: string, indent: string): Promise<string> {
     const chunks: string[] = [];
     const files = await fs.promises.readdir(dirPath);
-    const sortedFiles = files.sort(); // Sort files alphabetically
+    const sortedFiles = files.sort();
     const isLast = new Map<string, boolean>();
     
-    // Mark last items in each level
+   
     for (let i = 0; i < sortedFiles.length; i++) {
         isLast.set(sortedFiles[i], i === sortedFiles.length - 1);
     }
 
-    // Process directory entries in parallel
     await Promise.all(sortedFiles.map(async file => {
         const filePath = path.join(dirPath, file);
         const stat = await getCachedStat(filePath);
@@ -125,8 +123,7 @@ async function generateDirectoryTree(dirPath: string, rootPath: string, indent: 
 async function generateFileContents(dirPath: string, rootPath: string): Promise<string> {
     const chunks: string[] = [];
     const files = await fs.promises.readdir(dirPath);
-    
-    // Process files in parallel
+
     await Promise.all(files.map(async file => {
         const filePath = path.join(dirPath, file);
         const relativePath = path.relative(rootPath, filePath);
